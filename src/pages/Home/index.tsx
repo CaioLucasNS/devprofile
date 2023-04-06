@@ -1,14 +1,10 @@
 import React from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { Container, Title } from './styles';
 
 export const Home: React.FunctionComponent = () => {
   return (
-    <SafeAreaView
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-    >
-      <View>
-        <Text>Home Page</Text>
-      </View>
-    </SafeAreaView>
+    <Container>
+      <Title>Home page</Title>
+    </Container>
   );
 };
