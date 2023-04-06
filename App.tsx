@@ -9,8 +9,6 @@ import {
 
 import { Home } from './src/pages/Home';
 
-import AppLoading from 'expo-app-loading';
-
 const App: React.FunctionComponent = () => {
   const [fontsLoaded] = useFonts({
     Roboto_400Regular,
@@ -18,7 +16,7 @@ const App: React.FunctionComponent = () => {
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return null;
   }
 
   return (
