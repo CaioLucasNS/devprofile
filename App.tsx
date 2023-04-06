@@ -1,8 +1,14 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import theme from './src/global/style/theme';
 import { Home } from './src/pages/Home';
 
 const App: React.FunctionComponent = () => {
-  return <Home />;
+  return (
+    <ThemeProvider theme={theme}>
+      <Home />
+    </ThemeProvider>
+  );
 };
 
 export default App;
