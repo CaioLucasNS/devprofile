@@ -14,9 +14,17 @@ import { ScrollView, KeyboardAvoidingView, Platform, View } from 'react-native';
 import { Input } from '../../components/Form/Input';
 import { Button } from '../../components/Form/Button';
 
+import { useNavigation } from '@react-navigation/native';
+
 import devProfileLogo from '../../assets/logo.png';
 
+interface ScreenNavigationProp {
+  navigate: (screen: string) => void;
+}
+
 export const SignIn: React.FunctionComponent = () => {
+  const { navigate } = useNavigation<ScreenNavigationProp>();
+
   return (
     <KeyboardAvoidingView
       enabled
@@ -46,7 +54,7 @@ export const SignIn: React.FunctionComponent = () => {
         </Container>
       </ScrollView>
 
-      <CreateAccountButton>
+      <CreateAccountButton onPress={() => navigate('SignUp')}>
         <Icon name="log-in" />
         <CreateAccountTitle>Criar uma conta</CreateAccountTitle>
       </CreateAccountButton>
