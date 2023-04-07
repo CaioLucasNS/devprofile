@@ -9,6 +9,7 @@ import {
 
 import { Home } from './src/pages/Home';
 import { SignIn } from './src/pages/SignIn';
+import { SignUp } from './src/pages/SignUp';
 
 const App: React.FunctionComponent = () => {
   const [fontsLoaded] = useFonts({
@@ -23,7 +24,8 @@ const App: React.FunctionComponent = () => {
   return (
     <ThemeProvider theme={theme}>
       {/* <Home /> */}
-      <SignIn />
+      {/* <SignIn /> */}
+      <SignUp />
     </ThemeProvider>
   );
 };
