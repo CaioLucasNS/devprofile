@@ -7,9 +7,8 @@ import {
   Roboto_700Bold,
 } from '@expo-google-fonts/roboto';
 
-import { Home } from './src/pages/Home';
-import { SignIn } from './src/pages/SignIn';
-import { SignUp } from './src/pages/SignUp';
+import { NavigationContainer } from '@react-navigation/native';
+import { Routes } from './src/routes';
 
 const App: React.FunctionComponent = () => {
   const [fontsLoaded] = useFonts({
@@ -22,11 +21,11 @@ const App: React.FunctionComponent = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      {/* <Home /> */}
-      {/* <SignIn /> */}
-      <SignUp />
-    </ThemeProvider>
+    <NavigationContainer>
+      <ThemeProvider theme={theme}>
+        <Routes />
+      </ThemeProvider>
+    </NavigationContainer>
   );
 };
 
