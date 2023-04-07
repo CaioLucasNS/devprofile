@@ -8,6 +8,7 @@ import {
 } from '@expo-google-fonts/roboto';
 
 import { Home } from './src/pages/Home';
+import { SignIn } from './src/pages/SignIn';
 
 const App: React.FunctionComponent = () => {
   const [fontsLoaded] = useFonts({
@@ -21,7 +22,8 @@ const App: React.FunctionComponent = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Home />
+      {/* <Home /> */}
+      <SignIn />
     </ThemeProvider>
   );
 };
