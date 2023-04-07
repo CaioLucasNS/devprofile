@@ -1,26 +1,50 @@
 import React from 'react';
-import { Container, Content, Title } from './styles';
+import {
+  BackToSignInButton,
+  BackToSignInTitle,
+  Container,
+  Content,
+  DevProfileLogo,
+  Icon,
+  Title,
+} from './styles';
 import { Input } from '../../components/Form/Input';
-import { ScrollView } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { Button } from '../../components/Form/Button';
+
+import devProfileLogo from '../../assets/logo.png';
 
 export const SignUp: React.FunctionComponent = () => {
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={{ flex: 1 }}
+    <KeyboardAvoidingView
+      enabled
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <Container>
-        <Content>
-          <Title>Crie sua conta</Title>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flex: 1 }}
+      >
+        <Container>
+          <Content>
+            <DevProfileLogo source={devProfileLogo} />
+            <View>
+              <Title>Crie sua conta</Title>
+            </View>
 
-          <Input placeholder="Nome completo" />
-          <Input placeholder="Email" />
-          <Input placeholder="Senha" />
+            <Input placeholder="Nome completo" />
+            <Input placeholder="Email" />
+            <Input placeholder="Senha" />
 
-          <Button title="Registrar" />
-        </Content>
-      </Container>
-    </ScrollView>
+            <Button title="Registrar" />
+          </Content>
+        </Container>
+      </ScrollView>
+
+      <BackToSignInButton>
+        <Icon name="arrow-left" />
+        <BackToSignInTitle>Voltar para o Login</BackToSignInTitle>
+      </BackToSignInButton>
+    </KeyboardAvoidingView>
   );
 };
