@@ -1,5 +1,12 @@
 import React from 'react';
-import { Container, Content, DevProfileLogo, Title } from './styles';
+import {
+  Container,
+  Content,
+  DevProfileLogo,
+  ForgotPasswordButton,
+  ForgotPasswordTitle,
+  Title,
+} from './styles';
 import { Input } from '../../components/Form/Input';
 import { ScrollView } from 'react-native';
 import { Button } from '../../components/Form/Button';
@@ -21,6 +28,10 @@ export const SignIn: React.FunctionComponent = () => {
           <Input placeholder="Senha" />
 
           <Button title="Entrar" />
+
+          <ForgotPasswordButton>
+            <ForgotPasswordTitle>Esqueci minha senha</ForgotPasswordTitle>
+          </ForgotPasswordButton>
         </Content>
       </Container>
     </ScrollView>
