@@ -8,15 +8,15 @@ import {
   Icon,
   Title,
 } from './styles';
-import { Input } from '../../components/Form/Input';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { Button } from '../../components/Form/Button';
-
+import { InputControl } from '../../components/Form/InputControl';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigation } from '@react-navigation/native';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import devProfileLogo from '../../assets/logo.png';
-import { FieldValues, useForm } from 'react-hook-form';
-import { InputControl } from '../../components/Form/InputControl';
 
 interface ScreenNavigationProp {
   goBack: () => void;
@@ -28,8 +28,22 @@ interface IFormInputs {
   password: string;
 }
 
+const signUpSchema = yup
+  .object({
+    completeName: yup.string().required('Insira seu nome completo.'),
+    email: yup.string().email('Email inválido.').required('Informe o email.'),
+    password: yup.string().required('Informe a senha.'),
+  })
+  .required();
+
 export const SignUp: React.FunctionComponent = () => {
-  const { control, handleSubmit } = useForm<FieldValues>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    resolver: yupResolver(signUpSchema),
+  });
   const { goBack } = useNavigation<ScreenNavigationProp>();
 
   const handleSignUp = (form: IFormInputs) => {
@@ -65,6 +79,7 @@ export const SignUp: React.FunctionComponent = () => {
               control={control}
               name="completeName"
               placeholder="Nome completo"
+              error={errors.completeName && errors.completeName?.message}
             />
             <InputControl
               autoCapitalize="none"
@@ -73,6 +88,7 @@ export const SignUp: React.FunctionComponent = () => {
               keyboardType="email-address"
               name="email"
               placeholder="Email"
+              error={errors.email && errors.email?.message}
             />
             <InputControl
               autoCapitalize="none"
@@ -81,6 +97,7 @@ export const SignUp: React.FunctionComponent = () => {
               name="password"
               placeholder="Senha"
               secureTextEntry
+              error={errors.password && errors.password?.message}
             />
 
             <Button title="Registrar" onPress={handleSubmit(handleSignUp)} />
