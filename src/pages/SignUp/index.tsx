@@ -15,13 +15,32 @@ import { Button } from '../../components/Form/Button';
 import { useNavigation } from '@react-navigation/native';
 
 import devProfileLogo from '../../assets/logo.png';
+import { FieldValues, useForm } from 'react-hook-form';
+import { InputControl } from '../../components/Form/InputControl';
 
 interface ScreenNavigationProp {
   goBack: () => void;
 }
 
+interface IFormInputs {
+  completeName: string;
+  email: string;
+  password: string;
+}
+
 export const SignUp: React.FunctionComponent = () => {
+  const { control, handleSubmit } = useForm<FieldValues>();
   const { goBack } = useNavigation<ScreenNavigationProp>();
+
+  const handleSignUp = (form: IFormInputs) => {
+    const data = {
+      completeName: form.completeName,
+      email: form.email,
+      password: form.password,
+    };
+
+    console.log('data: ', data);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -40,11 +59,31 @@ export const SignUp: React.FunctionComponent = () => {
               <Title>Crie sua conta</Title>
             </View>
 
-            <Input placeholder="Nome completo" />
-            <Input placeholder="Email" />
-            <Input placeholder="Senha" />
+            <InputControl
+              autoCapitalize="words"
+              autoCorrect={false}
+              control={control}
+              name="completeName"
+              placeholder="Nome completo"
+            />
+            <InputControl
+              autoCapitalize="none"
+              autoCorrect={false}
+              control={control}
+              keyboardType="email-address"
+              name="email"
+              placeholder="Email"
+            />
+            <InputControl
+              autoCapitalize="none"
+              autoCorrect={false}
+              control={control}
+              name="password"
+              placeholder="Senha"
+              secureTextEntry
+            />
 
-            <Button title="Registrar" />
+            <Button title="Registrar" onPress={handleSubmit(handleSignUp)} />
           </Content>
         </Container>
       </ScrollView>
