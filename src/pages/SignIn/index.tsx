@@ -11,13 +11,14 @@ import {
   Title,
 } from './styles';
 import { ScrollView, KeyboardAvoidingView, Platform, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useForm, FieldValues } from 'react-hook-form';
 import { Button } from '../../components/Form/Button';
-
-import { useNavigation } from '@react-navigation/native';
+import { InputControl } from '../../components/Form/InputControl';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import devProfileLogo from '../../assets/logo.png';
-import { InputControl } from '../../components/Form/InputControl';
 
 interface ScreenNavigationProp {
   navigate: (screen: string) => void;
@@ -28,8 +29,21 @@ interface IFormInputs {
   password: string;
 }
 
+const signInSchema = yup
+  .object({
+    email: yup.string().email('Email inválido.').required('Informe o email.'),
+    password: yup.string().required('Informe a senha.'),
+  })
+  .required();
+
 export const SignIn: React.FunctionComponent = () => {
-  const { control, handleSubmit } = useForm<FieldValues>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    resolver: yupResolver(signInSchema),
+  });
 
   const { navigate } = useNavigation<ScreenNavigationProp>();
 
@@ -66,6 +80,7 @@ export const SignIn: React.FunctionComponent = () => {
               keyboardType="email-address"
               name="email"
               placeholder="Email"
+              error={errors.email && errors.email?.message}
             />
             <InputControl
               autoCapitalize="none"
@@ -74,6 +89,7 @@ export const SignIn: React.FunctionComponent = () => {
               name="password"
               placeholder="Senha"
               secureTextEntry
+              error={errors.password && errors.password?.message}
             />
 
             <Button title="Entrar" onPress={handleSubmit(handleSignIn)} />
